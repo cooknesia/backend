@@ -16,6 +16,7 @@ const init = async () => {
   await server.register(require('./src/routes/auth'));
   await server.register(require('./src/routes/foods'));
   await server.register(require('./src/routes/ratings'));
+  await server.register(require('./src/routes/recommendations'));
 
   await server.start();
   console.log('Server running on %s', server.info.uri);
