@@ -1,24 +1,25 @@
 const pool = require('../db/pool');
 
-const getAllFoods = async (provinceId) => {
-  let query = `
-    SELECT f.*, 
-      COALESCE(AVG(r.rating), 0)::FLOAT AS average_rating
-    FROM foods f
-    LEFT JOIN ratings r ON f.id = r.food_id
-  `;
+const getAllFoods = async (provinceId, limit, offset) => {
+  let query = 'SELECT * FROM foods';
   const params = [];
   if (provinceId) {
-    query += ` WHERE f.province_id = $1 `;
     params.push(provinceId);
+    query += ` WHERE province_id = $${params.length}`;
   }
-  query += `
-    GROUP BY f.id
-    ORDER BY f.name ASC
-  `;
-  const res = await pool.query(query, params);
-  return res.rows;
+  query += ' ORDER BY name ASC';
+  if (limit) {
+    params.push(limit);
+    query += ` LIMIT $${params.length}`;
+  }
+  if (offset) {
+    params.push(offset);
+    query += ` OFFSET $${params.length}`;
+  }
+  const result = await pool.query(query, params);
+  return result.rows;
 };
+
 
 const getFoodById = async (id) => {
   const foodRes = await pool.query(
@@ -92,14 +93,25 @@ const getFoodsByIds = async (ids) => {
   const result = await pool.query(query, [ids]);
   return result.rows;
 };
+const searchFoods = async (keyword) => {
+  const query = `
+      SELECT f.*, COALESCE(AVG(r.rating), 0)::FLOAT AS average_rating
+    FROM foods f
+    LEFT JOIN ratings r ON f.id = r.food_id
+    WHERE f.name ILIKE '%' || $1 || '%'
+    GROUP BY f.id
+    ORDER BY f.name ASC
+    LIMIT 20
+  `;
+  const result = await pool.query(query, [keyword]);
+  return result.rows;
+};
 
-
-module.exports = {
-  getAllFoods,
+module.exports = {  getAllFoods,
   getFoodById,
   incrementClickCount,
   getPopularFoods,
   checkFoodExists,
   checkProvinceExists,
-  getFoodsByIds
-};
+   getFoodsByIds,
+    searchFoods };

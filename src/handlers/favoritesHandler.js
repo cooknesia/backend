@@ -1,6 +1,6 @@
 const favoritesModel = require('../models/favoritesModel');
 const usersModel = require('../models/usersModel');
-const foodModel = require('../models/foodModel');
+const foodsModel = require('../models/foodsModel');
 
 const addFavoriteHandler = async (request, h) => {
   try {
@@ -23,23 +23,23 @@ const addFavoriteHandler = async (request, h) => {
     if (!userExists) {
       return h
         .response({
-          code: 400,
-          status: 'fail',
+          code: 404,
+          status: 'not found',
           message: 'User not found',
         })
-        .code(400);
+        .code(404);
     }
 
     // Validate foodId existence
-    const foodExists = await foodModel.checkFoodExists(foodId);
+    const foodExists = await foodsModel.checkFoodExists(foodId);
     if (!foodExists) {
       return h
         .response({
-          code: 400,
-          status: 'fail',
+          code: 404,
+          status: 'not found',
           message: 'Food not found',
         })
-        .code(400);
+        .code(404);
     }
 
     const result = await favoritesModel.addFavorite({ userId, foodId });
@@ -84,23 +84,23 @@ const removeFavoriteHandler = async (request, h) => {
     if (!userExists) {
       return h
         .response({
-          code: 400,
-          status: 'fail',
+          code: 404,
+          status: 'not found',
           message: 'User not found',
         })
-        .code(400);
+        .code(404);
     }
 
     // Validate foodId existence
-    const foodExists = await foodModel.checkFoodExists(foodId);
+    const foodExists = await favoritesModel.checkFavoriteExists({ userId, foodId });
     if (!foodExists) {
       return h
         .response({
-          code: 400,
-          status: 'fail',
+          code: 404,
+          status: 'not found',
           message: 'Food not found',
         })
-        .code(400);
+        .code(404);
     }
 
     await favoritesModel.removeFavorite({ userId, foodId });

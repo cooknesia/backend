@@ -1,5 +1,5 @@
 const ratingsModel = require('../models/ratingsModel');
-const { checkFoodExists } = require('../models/foodModel');
+const { checkFoodExists } = require('../models/foodsModel');
 const { checkUserExists, isValidUUID } = require('../models/usersModel');
 
 const addRatingHandler = async (request, h) => {

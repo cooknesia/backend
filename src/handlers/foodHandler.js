@@ -1,25 +1,32 @@
-const { getAllFoods, getFoodById, getPopularFoods, incrementClickCount,  checkFoodExists, checkProvinceExists } = require('../models/foodModel');
+const { getAllFoods, getFoodById, getPopularFoods, incrementClickCount,  checkFoodExists, checkProvinceExists,  searchFoods } = require('../models/foodsModel');
 
-const getFoods = async (request, h) => {
+const getFoodsHandler = async (request, h) => {
   try {
-    const  { provinceId } = request.params;
+    const { provinceId } = request.params;
+    const page = parseInt(request.query.page) || 1;
+    const limit = 20;
+    const offset = (page - 1) * limit;
 
     if (provinceId) {
       const provinceExists = await checkProvinceExists(provinceId);
       if (!provinceExists) {
-      return h.response({
-        code: 400,
-        status: 'error',
-        message: 'Province not found',
-      }).code(400);
+        return h.response({
+          code: 404,
+          status: 'not found',
+          message: 'Province not found',
+        }).code(404);
       }
     }
 
-    const foods = await getAllFoods(provinceId);
+    const foods = await getAllFoods(provinceId, limit, offset);
     return h.response({
       code: 200,
-      status: 'success',
-      data: foods,
+      status: 'success', 
+      data:{
+        page,
+        foods,
+        count: foods.length,
+      } ,
     }).code(200);
   } catch (err) {
     console.error(err);
@@ -31,7 +38,8 @@ const getFoods = async (request, h) => {
   }
 };
 
-const getFood = async (request, h) => {
+
+const getFoodHandler = async (request, h) => {
   const { foodId } = request.params;
   try {
    
@@ -89,8 +97,33 @@ const getPopularFoodsHandler = async (request, h) => {
   }
 };
 
+const searchFoodsHandler = async (request, h) => {
+  try {
+    const { keyword } = request.query;
+    if (!keyword) {
+      return h.response({
+        code: 400,
+        status: 'error', 
+        message: 'Keyword query parameter is required' }).code(400);
+    }
+    const foods = await searchFoods(keyword);
+    return h.response(
+      { code: 200, 
+        status: 'success', 
+        data: foods
+      }).code(200);
+  } catch (error) {
+    console.error(error);
+    return h.response({ 
+      code: 500,
+      status: 'error',
+      message: 'Failed to search foods' }).code(500);
+  }
+};
+
 module.exports = {
-  getFoods,
-  getFood,
+  getFoodsHandler,
+  getFoodHandler,
   getPopularFoodsHandler,
+  searchFoodsHandler,
 };

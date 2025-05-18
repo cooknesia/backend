@@ -1,5 +1,5 @@
+const Joi = require('joi');
 const foodHandler = require('../handlers/foodHandler');
-const authenticateJWT = require('../middlewares/authMiddleware');
 
 module.exports = {
   name: 'food-routes',
@@ -8,33 +8,40 @@ module.exports = {
       {
         method: 'GET',
         path: '/api/v1/foods',
-        handler: foodHandler.getFoods,
-        options: {
-          pre: [{ method: authenticateJWT }],
-        },
+        handler: foodHandler.getFoodsHandler,
       },
       {
         method: 'GET',
         path: '/api/v1/foods/province/{provinceId}',
-        handler: foodHandler.getFoods,
-        options: {
-          pre: [{ method: authenticateJWT }],
-        },
+        handler: foodHandler.getFoodsHandler,
       },
       {
         method: 'GET',
         path: '/api/v1/foods/{foodId}',
-        handler: foodHandler.getFood,
-        options: {
-          pre: [{ method: authenticateJWT }],
-        },
+        handler: foodHandler.getFoodsHandler,
       },
       {
         method: 'GET',
         path: '/api/v1/foods/popular',
         handler: foodHandler.getPopularFoodsHandler,
+      },
+      {
+        method: 'GET',
+        path: '/api/v1/foods/search',
+        handler: foodHandler.searchFoodsHandler,
         options: {
-          pre: [{ method: authenticateJWT }],
+          validate: {
+            query: Joi.object({
+              keyword: Joi.string().required(),
+            }),
+            failAction: (request, h, err) => {
+              return h.response({ 
+                code:400,
+                status: 'error',
+                error: err.message 
+              }).takeover().code(400);
+            },
+          },
         },
       },
     ]);

@@ -25,5 +25,12 @@ const getUserFavorites = async (userId) => {
   );
   return res.rows;
 };
+const checkFavoriteExists = async ({ userId, foodId }) => {
+  const res = await pool.query(
+    `SELECT 1 FROM favorites WHERE user_id = $1 AND food_id = $2`,
+    [userId, foodId]
+  );
+  return res.rowCount > 0;
+};
 
-module.exports = { addFavorite, removeFavorite, getUserFavorites };
+module.exports = { addFavorite, removeFavorite, getUserFavorites, checkFavoriteExists };

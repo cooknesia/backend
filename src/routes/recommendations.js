@@ -1,5 +1,4 @@
-const ratingsHandler = require('../handlers/recommendationHandler');
-const authenticateJWT = require('../middlewares/authMiddleware');
+const recommendationHandler = require('../handlers/recommendationHandler');
 
 module.exports = {
   name: 'recommendations-routes',
@@ -7,11 +6,13 @@ module.exports = {
     server.route([
       {
         method: 'POST',
-        path: '/api/v1/recomemmendations',
-        handler: ratingsHandler.addRatingHandler,
-        options: {
-          pre: [{ method: authenticateJWT }],
-        },
+        path: '/api/v1/recommendations',
+        handler: recommendationHandler.recommendFoodHandler,
+      },
+      {
+        method: 'GET',
+        path: '/api/v1/recommendation-logs/{userId}',
+        handler: recommendationHandler.getRecommendationLogsHandler,
       },
     ]);
   },
