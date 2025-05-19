@@ -18,7 +18,7 @@ module.exports = {
       {
         method: 'GET',
         path: '/api/v1/foods/{foodId}',
-        handler: foodHandler.getFoodsHandler,
+        handler: foodHandler.getFoodHandler,
       },
       {
         method: 'GET',
