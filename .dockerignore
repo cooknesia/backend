@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+.git
+.gitignore
+.env
+README.md
+c:/Users/ilham/Downloads/result-scrapping.json

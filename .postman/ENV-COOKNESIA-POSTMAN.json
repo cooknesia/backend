@@ -1,0 +1,51 @@
+{
+  "id": "df25e1e5-60cf-47a5-81fb-f4b5d60c7891",
+  "name": "Cooknesia API Test",
+  "values": [
+    {
+      "key": "port",
+      "value": "5000",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "foodId",
+      "value": "1",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "jwtToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlYjg3ZTRhLTE3ODYtNGE3Yy1iNDcyLWFlZGQ2YmVkYWI2MiIsImVtYWlsIjoiaWxoYW1ndXN0aXN5YWhwdXRyb0BnbWFpbC5jb20iLCJuYW1lIjoiSWxoYW0gR3VzdGkgU3lhaCBQdXRybyIsInBob3RvX3VybCI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0tEenEzZ3JfTk9Nc1NjMnlpYkVqU2gzZXN2aGJRU2h4ZjBVS3BHdWllTnVtQzY1QT1zOTYtYyIsImlhdCI6MTc0NzQ5NTM4OCwiZXhwIjoxNzQ3NTgxNzg4fQ.GF18W1YVwBdDVKDTufBXHYXs_-vd8aj_KCpwqTzOl6w",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "provinceId",
+      "value": "1",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "userId",
+      "value": "6eb87e4a-1786-4a7c-b472-aedd6bedab62",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "googleToken",
+      "value": "\"eyJhbGciOiJSUzI1NiIsImtpZCI6IjA3YjgwYTM2NTQyODUyNWY4YmY3Y2QwODQ2ZDc0YThlZTRlZjM2MjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyMzc3Mjc1ODUzMDQtY2FhYnU3dXE3MmJjY2Vpa2xqOHQwMXMzNTJuajZnMzAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMzc3Mjc1ODUzMDQtY2FhYnU3dXE3MmJjY2Vpa2xqOHQwMXMzNTJuajZnMzAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTY2MjU5OTExMTA1MDU1NDkyNjEiLCJlbWFpbCI6ImlsaGFtZ3VzdGlzeWFocHV0cm9AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5iZiI6MTc0NjcxNzAyNSwibmFtZSI6IklsaGFtIEd1c3RpIFN5YWggUHV0cm8iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jS0R6cTNncl9OT01zU2MyeWliRWpTaDNlc3ZoYlFTaHhmMFVLcEd1aWVOdW1DNjVBPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IklsaGFtIiwiZmFtaWx5X25hbWUiOiJHdXN0aSBTeWFoIFB1dHJvIiwiaWF0IjoxNzQ2NzE3MzI1LCJleHAiOjE3NDY3MjA5MjUsImp0aSI6ImIzYTkxZDZmYTYyMTYxZTgyMDIzZGU3NjYyYTEyNGRhZWU1ZTQ0YWQifQ.t-9K8OS97-oVio0DbcJ5vrpAWUWCzRuW3hdvgZc-4qPRHtgkYrlBNHqg4pZjrBuSbqGozcvPKFx98ZvExnmVDX52LCO2aYiQgwrl7GA0QcDGZTYv1qrLAnHb7G34Nra7cqmydxxMQBDCC27keFsgDxrgg9Qcu6odUarYyqq-uJ5fIMfnTXFYI5GtxEs6iqPcNI2jqhp5oJ64oYMvuQvn7khED_V7hBKsa2UlFfatEMRz5b4n9V3zkA-5LIvFBcN0st3OFLhIh5sgNnZHmBpHpNvovk111WMsYfR3Rrulx2djNcTpIQqp3LgzS00m1Mf1w7cklbqEQUra2ixja9Buag\"",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "url",
+      "value": "13.219.84.245",
+      "type": "default",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2025-05-18T05:17:52.451Z",
+  "_postman_exported_using": "Postman/11.45.6-250515-2337"
+}

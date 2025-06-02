@@ -1,0 +1,455 @@
+{
+  "info": {
+    "_postman_id": "6661ff45-a2d9-4dea-a56b-57aed62a236c",
+    "name": "Cooknesia API Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "28876676",
+    "_collection_link": "https://cooknesia.postman.co/workspace/My-Workspace~48bec5be-2b28-44a1-8f8c-eeb525642a80/collection/35391306-6661ff45-a2d9-4dea-a56b-57aed62a236c?action=share&source=collection_link&creator=28876676"
+  },
+  "item": [
+    {
+      "name": "Sign in With Google",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"token\": {{googleToken}}\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://{{url}}:{{port}}/api/v1/auth/google",
+          "protocol": "http",
+          "host": ["{{url}}"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "auth", "google"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Foods",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwtToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://{{url}}:{{port}}/api/v1/foods?page=2",
+          "protocol": "http",
+          "host": ["{{url}}"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "foods"],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Foods With Province",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwtToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": []
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/v1/foods/{{provinceId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "foods", "{{provinceId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Foods By Id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwtToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://{{url}}:{{port}}/api/v1/foods/{{foodId}}",
+          "protocol": "http",
+          "host": ["{{url}}"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "foods", "{{foodId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Popular Foods",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwtToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://{{url}}:{{port}}/api/v1/foods/popular",
+          "protocol": "http",
+          "host": ["{{url}}"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "foods", "popular"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Foods With Keyword",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwtToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://{{url}}:{{port}}/api/v1/foods/search?keyword=rawon",
+          "protocol": "http",
+          "host": ["{{url}}"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "foods", "search"],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "rawon"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Favorite Foods",
+      "request": {
+        "auth": {
+          "type": "jwt",
+          "jwt": [
+            {
+              "key": "header",
+              "value": "{{jwtToken}}",
+              "type": "string"
+            },
+            {
+              "key": "algorithm",
+              "value": "HS256",
+              "type": "string"
+            },
+            {
+              "key": "isSecretBase64Encoded",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "key": "payload",
+              "value": "{}",
+              "type": "string"
+            },
+            {
+              "key": "addTokenTo",
+              "value": "header",
+              "type": "string"
+            },
+            {
+              "key": "headerPrefix",
+              "value": "Bearer",
+              "type": "string"
+            },
+            {
+              "key": "queryParamKey",
+              "value": "token",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/favorites/{{foodId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "{{port}}",
+          "path": ["favorites", "{{foodId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Favorites Foods",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwtToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://{{url}}:{{port}}/api/v1/favorites/{{userId}}",
+          "protocol": "http",
+          "host": ["{{url}}"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "favorites", "{{userId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Favorites Foods",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwtToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://{{url}}:{{port}}/api/v1/favorites?userId={{userId}}&foodId={{foodId}}",
+          "protocol": "http",
+          "host": ["{{url}}"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "favorites"],
+          "query": [
+            {
+              "key": "userId",
+              "value": "{{userId}}"
+            },
+            {
+              "key": "foodId",
+              "value": "{{foodId}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Rating Foods",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwtToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userId\": \"{{userId}}\",\r\n  \"rating\": 5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://{{url}}:{{port}}/api/v1/ratings/{{foodId}}",
+          "protocol": "http",
+          "host": ["{{url}}"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "ratings", "{{foodId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Recommendation Foods",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"ingredients\": [\" Santan segar\",\"sarden\"]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/v1/recomemmendations",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "recomemmendations"],
+          "query": [
+            {
+              "key": "userId",
+              "value": "{{userId}}",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Logs Recommendation By User Id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwtToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"ingredients\": [\"secukupnya Garam, lada bubuk dan gula pasir\",\"3 buah tahu, potong dadu\"]\r\n}"
+        },
+        "url": {
+          "raw": "http://{{url}}:{{port}}/api/v1/recomemmendations/{{userId}}",
+          "protocol": "http",
+          "host": ["{{url}}"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "recomemmendations", "{{userId}}"],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Ingredients",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://{{url}}:{{port}}/api/v1/ingredients?page=2",
+          "protocol": "http",
+          "host": ["{{url}}"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "ingredients"],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Ingredients With Keyword",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://{{url}}:{{port}}/api/v1/ingredients/search?keyword=air",
+          "protocol": "http",
+          "host": ["{{url}}"],
+          "port": "{{port}}",
+          "path": ["api", "v1", "ingredients", "search"],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "air"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
