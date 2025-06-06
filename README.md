@@ -13,6 +13,36 @@ Authorization: Bearer your_jwt_token
 
 ---
 
+## Installation Guide
+
+### Prerequisites
+- Make sure Node.js is installed on your computer. You can download it from [https://nodejs.org/](https://nodejs.org/).
+
+### Installation Steps
+1. Clone this repository to your computer:
+   ```
+   git clone <YOUR_REPOSITORY_URL>
+   ```
+2. Navigate to the project directory:
+   ```
+   cd backend
+   ```
+3. Install the required dependencies:
+   ```
+   npm install
+   ```
+4. Run the server:
+   ```
+   node server.js
+   ```
+   or if you use npm start (make sure there is a start script in package.json):
+   ```
+   npm start prod
+
+   ```
+
+---
+
 ## Endpoints
 
 ### Authentication
