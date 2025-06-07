@@ -1,6 +1,7 @@
 const { addRating, checkRatingExists } = require('../models/ratingsModel');
 const { checkFoodExists } = require('../models/foodsModel');
 const { checkUserExists, isValidUUID } = require('../models/usersModel');
+const { decodeJwt } = require('../utils/jwt');
 
 const addRatingHandler = async (request, h) => {
   try {
@@ -80,4 +81,45 @@ const addRatingHandler = async (request, h) => {
   }
 };
 
-module.exports = { addRatingHandler };
+const getRatingHandler = async (request, h) => {
+  try {
+    const foodId = parseInt(request.params.foodId);
+    const token = request.headers.authorization?.split(' ')[1];
+    const userId = decodeJwt(token)?.id || null; 
+
+    if (!token) {
+      return h.response({
+        status: false,
+        message: 'Unauthorized',
+      }).code(401);
+    }
+
+    if (!isValidUUID(userId)) {
+      return h
+        .response({
+          code: 400,
+          status: 'error',
+          message: 'User ID must be a valid UUID',
+        })
+        .code(400);
+    }
+
+    const ratingExists = await checkRatingExists(userId, foodId);
+    return h
+      .response({
+        status: true,
+        user_has_rated: ratingExists
+      })
+      .code(200);
+  } catch (err) {
+    console.error(err);
+    return h
+      .response({
+        status: false,
+        message: 'Failed to get rating',
+      })
+      .code(500);
+  }
+};
+
+module.exports = { addRatingHandler,getRatingHandler };

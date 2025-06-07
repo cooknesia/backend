@@ -12,7 +12,7 @@ const authenticateJWT = (request, h) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     request.auth = {
-      credentials: decoded, // user_id, email, dsb
+      credentials: decoded, 
     };
 
     return h.continue;

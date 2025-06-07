@@ -5,6 +5,9 @@ const {
   incrementClickCount,
   checkFoodExists,
 } = require('../models/foodsModel');
+const jwt = require('jsonwebtoken');
+const { decodeJwt } = require('../utils/jwt');
+const { checkRatingExists } = require('../models/ratingsModel');
 
 const getFoodsHandler = async (request, h) => {
   try {
@@ -46,8 +49,11 @@ const getFoodsHandler = async (request, h) => {
 
 const getFoodHandler = async (request, h) => {
   const { foodId } = request.params;
+  const token = request.headers.authorization?.split(' ')[1];
+  const user = decodeJwt(token); 
 
   try {
+    let user_has_rated = false;
     const food = await checkFoodExists(foodId);
     if (!food) {
       return h
@@ -59,12 +65,20 @@ const getFoodHandler = async (request, h) => {
         .code(404);
     } else {
       const food = await getFoodById(foodId);
+
+      if (token && user) {
+        user_has_rated = await checkRatingExists(user.id, foodId);
+      }
       await incrementClickCount(foodId);
+      console.log(user_has_rated)
       return h
         .response({
           code: 200,
           status: 'success',
-          data: food,
+          data: {
+            user_has_rated,
+            ...food,
+          },
         })
         .code(200);
     }

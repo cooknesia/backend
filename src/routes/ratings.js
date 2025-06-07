@@ -13,6 +13,14 @@ module.exports = {
           pre: [{ method: authenticateJWT }],
         },
       },
+      {
+        method: 'GET',
+        path: '/api/v1/ratings/{foodId}',
+        handler: ratingsHandler.getRatingHandler,
+        options: {
+          pre: [{ method: authenticateJWT }],
+        },
+      },
     ]);
   },
 };

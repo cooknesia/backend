@@ -62,27 +62,48 @@ const logRecommendation = async ({ userId, ingredients, foodIds }) => {
 };
 
 const getRecommendationLogsWithFoodsByUserId = async (userId) => {
-  // Query recommendation logs filtered by user_id
+  // Query recommendation logs unik berdasarkan kombinasi selected_ingredients,
+  // pilih yang terbaru per kombinasi
   const logsRes = await pool.query(
-    `SELECT id, user_id, selected_ingredients, recommended_foods, created_at
-     FROM recommendation_logs
-     WHERE user_id = $1
-     ORDER BY created_at DESC`,
-    [userId],
+    `
+    SELECT DISTINCT ON (normalized_ingredients)
+      id,
+      user_id,
+      selected_ingredients,
+      recommended_foods,
+      created_at
+    FROM (
+      SELECT *,
+        ARRAY(
+          SELECT DISTINCT ingredient
+          FROM unnest(selected_ingredients) AS ingredient
+          ORDER BY ingredient
+        ) AS normalized_ingredients
+      FROM recommendation_logs
+      WHERE user_id = $1
+    ) sub
+    ORDER BY normalized_ingredients, created_at DESC
+    `,
+    [userId]
   );
 
-  const logs = logsRes.rows;
+  let logs = logsRes.rows;
 
-  // For each log, fetch detailed food data for the recommended_foods array
+  // Urutkan logs berdasarkan id terbesar ke terkecil
+  logs = logs.sort((a, b) => b.id - a.id);
+
+  // Fetch detail foods untuk tiap log
   for (const log of logs) {
     if (log.recommended_foods && log.recommended_foods.length > 0) {
       const foodsRes = await pool.query(
-        `SELECT f.*, COALESCE(AVG(r.rating), 0)::FLOAT AS average_rating
-         FROM foods f
-         LEFT JOIN ratings r ON f.id = r.food_id
-         WHERE f.id = ANY($1)
-         GROUP BY f.id`,
-        [log.recommended_foods],
+        `
+        SELECT f.*, COALESCE(AVG(r.rating), 0)::FLOAT AS average_rating
+        FROM foods f
+        LEFT JOIN ratings r ON f.id = r.food_id
+        WHERE f.id = ANY($1)
+        GROUP BY f.id
+        `,
+        [log.recommended_foods]
       );
       log.foods = foodsRes.rows;
     } else {
@@ -93,6 +114,8 @@ const getRecommendationLogsWithFoodsByUserId = async (userId) => {
 
   return logs;
 };
+
+
 
 module.exports = {
   getRecommendationFromML,
